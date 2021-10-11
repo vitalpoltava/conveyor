@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Conveyor mocking</title>
+</head>
+<style>
+    .item {
+        display: inline-block;
+        padding: 1rem;
+        margin-left: 1px;
+    }
+
+    .idle {
+        background-color: lightgray;
+    }
+
+    .inWork {
+        background-color: lightgreen;
+    }
+
+    .finished {
+        background-color: black;
+    }
+</style>
+<body>
+<div id="main"></div>
+<script type="module">
+    import { Conveyor } from './limited-stream.mjs';
+
+    const el = document.querySelector('#main');
+    const conveyor = new Conveyor(el)
+    conveyor.startConveyor();
+</script>
+</body>
+</html>
