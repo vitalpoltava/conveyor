@@ -1,7 +1,7 @@
 export class Conveyor {
   constructor(el, tasksLimit = 3) {
     this.tasksInProgressTheshold = tasksLimit;
-    this.shouldStopTicking = false;
+    this.shouldStopPolling = false;
     this.taskInterval = 1000;
     this.inProgressCounter = 0;
     this.el = el;
@@ -19,15 +19,15 @@ export class Conveyor {
       limitCounter++;
       if (limitCounter >= inputLimit) {
         clearInterval(counter);
-        this.startTrackerTicking();
+        this.startPolling();
       }
       this.visualize();
     }, this.taskInterval/5)
   }
 
-  startTrackerTicking(interval = 100) {
+  startPolling(interval = 100) {
     const tick = setInterval(() => {
-      if (this.shouldStopTicking) {
+      if (this.shouldStopPolling) {
         clearInterval(tick);
       }
       this.doCheck();
@@ -47,7 +47,7 @@ export class Conveyor {
         allDone = allDone && task.finished;
       });
 
-      this.shouldStopTicking = allDone;
+      this.shouldStopPolling = allDone;
     }
   }
 
