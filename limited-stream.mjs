@@ -22,7 +22,7 @@ export class Conveyor {
         this.startPolling();
       }
       this.visualize();
-    }, this.taskInterval/5)
+    }, this.taskInterval / 5);
   }
 
   startPolling(interval = 100) {
@@ -39,7 +39,11 @@ export class Conveyor {
     let allDone = true;
     if (this.line.length) {
       this.line.forEach((task) => {
-        if (!task.finished && !task.inWork && this.inProgressCounter < this.tasksInProgressTheshold) {
+        if (
+          !task.finished &&
+          !task.inWork &&
+          this.inProgressCounter < this.tasksInProgressTheshold
+        ) {
           this.inProgressCounter++;
           task.inWork = true;
           task.startWork();
@@ -61,27 +65,33 @@ export class Conveyor {
         if (!task.finished) {
           const starter = setInterval(() => {
             if (task.workToDo > 0) {
-              task.workToDo--
+              task.workToDo--;
             } else {
               task.inWork = false;
               task.finished = true;
               this.inProgressCounter--;
               clearInterval(starter);
             }
-          }, this.taskInterval)
+          }, this.taskInterval);
         }
       },
-    }
+    };
 
     this.line.push(task);
   }
 
   visualize() {
     if (this.el) {
-      const items = this.line.map(item => {
-        const progressClass = item.inWork ? ' inWork' : item.finished ? ' finished' : ' idle';
-        return `<div class="item${progressClass}">${item.workToDo}</div>`
-      }).join('');
+      const items = this.line
+        .map((item) => {
+          const progressClass = item.inWork
+            ? " inWork"
+            : item.finished
+              ? " finished"
+              : " idle";
+          return `<div class="item${progressClass}">${item.workToDo}</div>`;
+        })
+        .join("");
 
       this.el.innerHTML = `<div>${items}</div>`;
     }
