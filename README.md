@@ -2,12 +2,12 @@
 
 JS: Live conveyor line with arriving tasks and its handler (with visualisation)
 
-###Task:
+### Task:
 
 There is a stream of incoming tasks (conveyor line), each can take a different time to be done.
 We should create a conveyor to operate tasks from queue with limitation put on in-progress quantity.
 
-###Approach:
+### Approach:
 
 1) Create a queue with incoming tasks within some interval with a special prop, determining task operating time.
 2) There should be a task going through the list and mark a task `in progress`, but not more then `max` quantity (provided as a param).
